@@ -70,12 +70,25 @@ For those of you who are impatient, here is the summary of commands we ran in th
 # Create a bootstrap master and sentinel
 kubectl create -f examples/storage/redis/redis-statefulset.yaml
 
+# Check logs of the master and sentinel
+kubectl logs redis-0 -c redis
+kubectl logs redis-0 -c sentinel
+
 # Scale both replication controllers
 kubectl scale statefulset redis --replicas=3
 
 # Delete the original master pod
-# Note: If you are running all the above commands consecutively including this one in a shell script, it may NOT work out. When you run the above commands, let the pods first come up, especially the redis-0 pod. Else, the sentinel pods would never be able to know the master redis server and establish a connection with it.
 kubectl delete pods redis-0
+
+# Check logs of all nodes
+kubectl logs redis-0 -c redis
+kubectl logs redis-0 -c sentinel
+
+kubectl logs redis-1 -c redis
+kubectl logs redis-1 -c sentinel
+
+kubectl logs redis-2 -c redis
+kubectl logs redis-2 -c sentinel
 ```
 
 
