@@ -18,6 +18,7 @@ RUN apk add --no-cache redis sed bash
 
 COPY redis.conf /redis.conf
 COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 CMD [ "/run.sh" ]
 
